@@ -7,13 +7,9 @@
 # checking the user input - assume the user types numbers properly.
 
 hrs = input("Enter Hours:")
-try :
-    h = float(hrs)
-except:
-    print("Error, please enter a number")
-    quit()
 rates = input("Enter Rate:")
 try :
+    h = float(hrs)
     r1 = float(rates)
 except:
     print("Error, please enter a number")
