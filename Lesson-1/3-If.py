@@ -7,9 +7,17 @@
 # checking the user input - assume the user types numbers properly.
 
 hrs = input("Enter Hours:")
-h = float(hrs)
+try :
+    h = float(hrs)
+except:
+    print("Error, please enter a number")
+    quit()
 rates = input("Enter Rate:")
-r1 = float(rates)
+try :
+    r1 = float(rates)
+except:
+    print("Error, please enter a number")
+    quit()
 r2 = r1 * 1.5
 if h <= 40 :
     pay = h * r1
