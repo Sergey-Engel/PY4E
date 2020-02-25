@@ -19,16 +19,16 @@ soup = BeautifulSoup(html, "html.parser")
 tags = soup('a')
 
 fname = 'ai_news.txt'
-foldname = 'ai_news_old.txt'
+flog = 'ai_news.log'
 try:
-    fh = open(fname,'w')
+    foh = open(fname,'r')
 except:
     print('ERROR -- File \"'+fname+'\" can not be open')
     quit()
 try:
-    foh = open(foldname,'r')
+    flh = open(flog,'a')
 except:
-    print('ERROR -- File \"'+foldname+'\" can not be open')
+    print('ERROR -- File \"'+flog+'\" can not be open')
     quit()
 
 #print('TAG',tag)
@@ -47,8 +47,6 @@ for line in urllist :
     urlnewlist.append('https://ai-news.ru/'+line+'\n')
     prevline = line
 
-for line in urlnewlist: fh.write(line)
-
 urloldlist = list()
 for oldline in foh :
 #    oldline.rstrip()
@@ -66,10 +64,20 @@ for i in range(0,max(len(urlnewlist),len(urloldlist))) :
         old = old + 1
         continue
     if urlnewlist[new] > urloldlist[old] :
-        print('--- ('+str(old)+'):',urloldlist[old].rstrip())
+        print('--- ('+str(old)+'): '+urloldlist[old].rstrip())
+        flh.write('--- ('+str(old)+'): '+urloldlist[old].rstrip()+'\n')
         old = old + 1
         continue
     if urlnewlist[new] < urloldlist[old] :
-        print('+++ ('+str(new)+'):',urlnewlist[new].rstrip())
+        print('+++ ('+str(new)+'): '+urlnewlist[new].rstrip())
+        flh.write('+++ ('+str(new)+'): '+urlnewlist[new].rstrip()+'\n')
         new = new + 1
         continue
+
+# Write new information into file
+try:
+    fh = open(fname,'w')
+except:
+    print('ERROR -- File \"'+fname+'\" can not be open')
+    quit()
+for line in urlnewlist: fh.write(line)
